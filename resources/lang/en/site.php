@@ -34,6 +34,10 @@ return [
     'new_cat' => 'create Service',
     'delete' => 'Delete',
     'edit' => 'Update',
+    'uncompleted' => 'Uncompleted',
+    'complet' => 'Complete',
+    'open' => 'Open',
+
 
 
 ];

@@ -34,7 +34,10 @@ return [
     'request' => 'طلب',
     'new_cat' => 'إضافة خدمة جديدة',
     'delete' => 'حذف',
-    'edit' => 'تعديل '
+    'edit' => 'تعديل ',
+    'uncompleted' => 'لم تكتمل',
+    'complet' => 'إكمال',
+    'open' => 'جاري',
 
 
 

@@ -31,7 +31,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['au
     Route::get('/queues', [HomeController::class, 'queues'])->name('queues');
 
     Route::resource('queue', QueueController::class)->except([
-        'index', 'show', 'create'
+        'index', 'show',
     ]);
 
     Route::resource('service', CategoriesController::class)->except([
@@ -42,7 +42,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['au
 
     Route::delete('deelte/user/{id}', [HomeController::class, 'destroy'])->name('client.destroy');
 
-    Route::post('queue/status', [QueueController::class, 'changeStatus'])->name('changeStatus');
+    Route::post('queue/status/{id}', [QueueController::class, 'changeStatus'])->name('changeStatus');
 });
 
 require __DIR__ . './auth.php';

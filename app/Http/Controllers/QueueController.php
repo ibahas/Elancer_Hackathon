@@ -60,7 +60,7 @@ class QueueController extends Controller
 
         queue::create($newQueue);
 
-        
+
         return redirect()->route('/')->with(['success' => trans('site.queue_no') . ' ' .
             $newQueue['no'] . ' ' .
             trans('site.remaining_time') . ' ' .
@@ -107,8 +107,23 @@ class QueueController extends Controller
      * @param  \App\Models\queue  $queue
      * @return \Illuminate\Http\Response
      */
-    public function destroy(queue $queue)
+    public function destroy(queue $queue, $id)
     {
         //
+    }
+    public function changeStatus(Request $request, $id)
+    {
+        # code...
+        $request->validate([
+            'status' => 'in:open,complet,uncompleted',
+        ]);
+
+
+        $queue = queue::findorfail($id);
+        $queue->status = $request->status;
+        $queue->save();
+
+
+        return redirect('/');
     }
 }

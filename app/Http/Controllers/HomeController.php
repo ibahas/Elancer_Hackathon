@@ -34,14 +34,59 @@ class HomeController extends Controller
             // dd($categories);
             $queues = queue::where('status', 'open')->whereDate('created_at', Carbon::today())
                 ->orderBy('id')->get();
-            // dd($queues);
 
 
             return view('dashboard', compact('clients', 'categories', 'queues'));
         } else {
             $categories = Category::all();
+            $firstQueue = queue::where('status', 'open')
+                ->where('user_id', Auth::id())->first();
+            $LastQueue = queue::where('status', 'open')
+                ->where('user_id', Auth::id())->latest('id')->first();
 
-            return view('home', compact('categories'));
+            // dd($firstQueue->id, $LastQueue->id);
+
+            if (isset($firstQueue, $LastQueue)) {
+                $queues = queue::where('status', 'open')
+                    ->where('id', '<', $firstQueue->id)
+                    ->whereDate('created_at', Carbon::today())
+                    ->orderBy('id')->with('category')->get();
+                $var = 0;
+                // dd($queues);
+                foreach ($queues as $key => $queue) {
+                    # code...
+                    $var += $queue->category->time;
+                    // dd("Dd");
+                }
+                dd($var);
+
+                $clientQueue = queue::where('status', 'open')->where('user_id', Auth::id())->first();
+                // dd($firstQueue);
+                if ($clientQueue && $var > 0) {
+                    $var = $var -  $firstQueue->category->time;
+                }
+            } else {
+                $queues = queue::where('status', 'open')
+                    ->whereDate('created_at', Carbon::today())
+                    ->orderBy('id')->with('category')->get();
+                $var = 0;
+                // dd($queues);
+                foreach ($queues as $key => $queue) {
+                    # code...
+                    $var += $queue->category->time;
+                }
+                $clientQueue = queue::where('status', 'open')
+                    ->where('user_id', Auth::id())->latest('id')->first();
+                // dd($clientQueue);
+                if ($clientQueue) {
+                    $var = $var - $clientQueue->category->time;
+                }
+            }
+
+
+            // dd($var);
+
+            return view('home', compact('categories', 'var', 'clientQueue'));
         }
     }
 

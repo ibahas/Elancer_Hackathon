@@ -26,7 +26,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $queue->status }}</td>
                                     <td>{{ $queue->user->name }}</td>
-                                    <td>{{ $queue->category }}</td>
+                                    <td>{{ title($queue->category) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

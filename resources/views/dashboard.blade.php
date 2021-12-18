@@ -28,7 +28,17 @@
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td>{{ $queue->user->name }}</td>
-                                    <td>{{ $queue->status }}</td>
+                                    <td>
+                                        <form action="{{ route('changeStatus', $queue->id) }}" id="status_{{$queue->id}}" method="POST">
+                                            @csrf
+
+                                            <select name="status" id="status" onchange="document.getElementById('status_{{$queue->id}}').submit()">
+                                                <option value="open">@lang('site.open')</option>
+                                                <option value="complet">@lang('site.complet')</option>
+                                                <option value="uncompleted">@lang('site.uncompleted')</option>
+                                            </select>
+                                        </form>
+                                    </td>
                                     <td>{{ $queue->no }}</td>
                                     <td>{{ title($queue->category) }}</td>
                                     <td>
