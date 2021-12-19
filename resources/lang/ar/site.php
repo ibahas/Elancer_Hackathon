@@ -38,6 +38,7 @@ return [
     'uncompleted' => 'لم تكتمل',
     'complet' => 'إكمال',
     'open' => 'جاري',
+    'now_queues' => 'دور الأن',
 
 
 

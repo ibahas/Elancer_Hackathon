@@ -12,6 +12,9 @@
                 <div class="tab-pane fade show active vh-100">
                     <h3>@lang('site.queues')</h3>
                     <a href="{{ route('queues') }}">@lang('site.all_queues')</a>
+                    <br>
+                    <a href="{{ url('queue') }}">@lang('site.now_queues')</a>
+
                     <table class="table table-hover">
                         <thead>
                             <tr>

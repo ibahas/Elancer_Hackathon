@@ -34,8 +34,10 @@
     <link rel="stylesheet" href="https://new.sahel-motor.sa/site/vendor/fontawesome/css/all.min.css">
 
     <link rel="stylesheet" href="{{ asset('css/UserProfile.css') }}">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" id="theme-styles">
 
-    <title>@lang('site.title') | @yield('title')</title>
+    <title>@lang('site.title') @yield('title')</title>
 </head>
 
 <body>

@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\Dashboard\CategoriesController;
@@ -17,21 +18,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('/migrate', function () {
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
-
-
-
+    // Call seeder
+    \Artisan::call('db:seed', [
+        '--class' => 'addData',
+        '--force' => true // <--- add this line
+    ]);
+});
 //All
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['auth']], function () {
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth']], function () {
     Route::get('/', [HomeController::class, 'index'])->name('/');
 
     Route::get('/queues', [HomeController::class, 'queues'])->name('queues');
 
     Route::resource('queue', QueueController::class)->except([
-        'index', 'show',
+        'show',
     ]);
 
     Route::resource('service', CategoriesController::class)->except([
@@ -45,5 +47,5 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['au
     Route::post('queue/status/{id}', [QueueController::class, 'changeStatus'])->name('changeStatus');
 });
 
-require __DIR__ . './auth.php';
-// Auth::routes();
+// require __DIR__ . './auth.php';
+Auth::routes();

@@ -58,7 +58,7 @@ class HomeController extends Controller
                     $var += $queue->category->time;
                     // dd("Dd");
                 }
-                dd($var);
+                // dd($var);
 
                 $clientQueue = queue::where('status', 'open')->where('user_id', Auth::id())->first();
                 // dd($firstQueue);

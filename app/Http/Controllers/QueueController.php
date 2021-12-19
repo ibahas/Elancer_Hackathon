@@ -17,6 +17,13 @@ class QueueController extends Controller
     public function index()
     {
         //
+        $queue = queue::where('status', 'open')->first();
+        // dd($queue);
+        if ($queue == null) {
+            // dd($queue);
+            return redirect('/');
+        }
+        return view('queuesNow', compact('queue'));
     }
 
     /**
@@ -113,6 +120,7 @@ class QueueController extends Controller
     }
     public function changeStatus(Request $request, $id)
     {
+        // dd($request->all());
         # code...
         $request->validate([
             'status' => 'in:open,complet,uncompleted',
@@ -124,6 +132,6 @@ class QueueController extends Controller
         $queue->save();
 
 
-        return redirect('/');
+        return redirect()->back();
     }
 }

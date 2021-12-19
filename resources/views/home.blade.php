@@ -47,6 +47,17 @@
                                     @endphp
                                 </div>
                             </div>
+                            <script>
+                                Swal.fire(
+                                    '{{$clientQueue['no']}}',
+                                    ' @php
+                                        echo trans('site.queue_no') . ' ' . $clientQueue['no'] . ' ' . trans('site.remaining_time') . ' ' . $var . ' ' . trans('site.minute\s');
+                                        
+                                    @endphp ',
+                                    'success',
+
+                                )
+                            </script>
                         @endif
                     </div>
 
