@@ -39,8 +39,10 @@ class HomeController extends Controller
             return view('dashboard', compact('clients', 'categories', 'queues'));
         } else {
             $categories = Category::all();
+
             $firstQueue = queue::where('status', 'open')
                 ->where('user_id', Auth::id())->first();
+
             $LastQueue = queue::where('status', 'open')
                 ->where('user_id', Auth::id())->latest('id')->first();
 
@@ -52,19 +54,14 @@ class HomeController extends Controller
                     ->whereDate('created_at', Carbon::today())
                     ->orderBy('id')->with('category')->get();
                 $var = 0;
-                // dd($queues);
+                // dd(count($queues));
                 foreach ($queues as $key => $queue) {
                     # code...
                     $var += $queue->category->time;
-                    // dd("Dd");
+                    // dd($var);
                 }
-                // dd($var);
-
                 $clientQueue = queue::where('status', 'open')->where('user_id', Auth::id())->first();
-                // dd($firstQueue);
-                if ($clientQueue && $var > 0) {
-                    $var = $var -  $firstQueue->category->time;
-                }
+
             } else {
                 $queues = queue::where('status', 'open')
                     ->whereDate('created_at', Carbon::today())
@@ -83,10 +80,15 @@ class HomeController extends Controller
                 }
             }
 
+            $clientQueue = queue::where('status', 'open')->where('user_id', Auth::id())->first();
 
-            // dd($var);
 
-            return view('home', compact('categories', 'var', 'clientQueue'));
+            //client all Queues 
+            $clientQueues = queue::where('user_id', Auth::id())
+                ->where('status', 'open')
+                ->get();
+
+            return view('home', compact('categories', 'var', 'clientQueue', 'clientQueues'));
         }
     }
 

@@ -38,6 +38,7 @@ return [
     'complet' => 'Complete',
     'open' => 'Open',
     'now_queues' => 'Queues now',
+    'ok' => 'Ok',
 
 
 

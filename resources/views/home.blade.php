@@ -38,34 +38,37 @@
                             <button type="submit"
                                 class="btn btn-primary btn-xl btn-block btn_login">@lang('site.request')</button>
                         </form>
-                        @if ($clientQueue)
-                            <div class="col-6">
+                        <div class="col-6">
+                            @if ($clientQueue)
+
                                 <div class="alert alert-success">
                                     @php
-                                        echo trans('site.queue_no') . ' ' . $clientQueue['no'] . ' ' . trans('site.remaining_time') . ' ' . $var . ' ' . trans('site.minute\s');
+                                        echo trans('site.queue_no') . ' ' . $clientQueue['no'] . ' ' . trans('site.remaining_time') . ' ' . $var . trans('site.minute\s');
                                         
                                     @endphp
                                 </div>
-                            </div>
-                            <script>
-                                Swal.fire(
-                                    '{{$clientQueue['no']}}',
-                                    ' @php
-                                        echo trans('site.queue_no') . ' ' . $clientQueue['no'] . ' ' . trans('site.remaining_time') . ' ' . $var . ' ' . trans('site.minute\s');
+                                <script>
+                                    Swal.fire({
+                                        title: '{{ $clientQueue['no'] }}',
+                                        text: ' @php
+                                        echo trans('site.queue_no') . ' ' . $clientQueue['no'] . ' ' . trans('site.remaining_time') . ' ' . $var . trans('site.minute\s');
                                         
-                                    @endphp ',
-                                    'success',
+                                        @endphp ',
+                                        confirmButtonText: '@lang('site.ok')',
+                                        icon: 'success',
 
-                                )
-                            </script>
-                        @endif
+                                    })
+                                </script>
+                            @endif
+
+                        </div>
+
                     </div>
 
                 </div>
             </div>
         </div>
     </div>
-
     <x-settings />
 
 @endsection

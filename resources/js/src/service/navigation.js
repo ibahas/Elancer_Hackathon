@@ -52,7 +52,9 @@
     // });
 
     // close the navMenu by clicking outside
-    menuOverlay.addEventListener("click", toggleNav);
+    if(menuOverlay){
+        menuOverlay.addEventListener("click", toggleNav);
+    }
 
     function toggleNav() {
         navMenu.classList.toggle("open");

@@ -59,14 +59,34 @@
                     <i class="bx bx-menu"></i>
                 </div>
 
+
                 <!-- return user to main page  -->
                 <a href="#" class="nav__toggle">
                     <i class="bx bx-home-alt"></i>
                 </a>
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        @lang('site.languages')
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
+                        @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <li><a class="dropdown-item" id="{{ $localeCode }}-lang-small"
+                                    hreflang="{{ $localeCode }}"
+                                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">{{ $properties['native'] }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+
+                </div>
             </div>
 
+            <!-- Shadow of small nav  -->
+            <div class="menu-overlay"></div>
 
-            <div class="nav__menu" id="nav-menu">
+            <div class="nav__menu nav-menu" id="nav-menu">
+
                 <div class="nav__close" id="nav-close">
                     <i class="bx bx-x"></i>
                 </div>
@@ -145,11 +165,13 @@
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                <li><a class="dropdown-item" hreflang="{{ $localeCode }}"
+                                <li><a class="dropdown-item" id="{{ $localeCode }}-lang"
+                                        hreflang="{{ $localeCode }}"
                                         href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">{{ $properties['native'] }}</a>
                                 </li>
                             @endforeach
                         </ul>
+
                     </div>
                 </nav>
             </header>
@@ -172,25 +194,25 @@
                     $('a[href$="home"]').addClass('active');
                 }
                 $(window).scroll(function() {
-                    //Get max data-percent-viewport
-                    var $newArray = [];
-                    $("[data-percent-viewport]").each(function(index, element) {
-                        $newArray.push($(this).attr('data-percent-viewport').split(' '));
-                    });
-                    //Find Max
-                    // console.log(Math.max(...$newArray.map(o => o)));
-                    var maxValueOfPercent = Math.max(...$newArray.map(o => o));
-                    // console.log($(`[data-percent-viewport='${maxValueOfPercent}']`));
-                    var classesElement = $(`[data-percent-viewport='${maxValueOfPercent}']`).attr('class');
-                    // console.log(classesElement);
-                    var lastClass = classesElement.substr(classesElement.lastIndexOf(' ') + 1);
-                    localStorage.setItem('href', lastClass);
-                    $('.nav__item').each(function(index, element) {
-                        // element == this
-                        $(this).find('a').removeClass('active');
-                    });
-                    $('a[href$="' + lastClass + '"]').addClass('active');
-                    // window.location = "#" + lastClass;
+                    // //Get max data-percent-viewport
+                    // var $newArray = [];
+                    // $("[data-percent-viewport]").each(function(index, element) {
+                    //     $newArray.push($(this).attr('data-percent-viewport').split(' '));
+                    // });
+                    // //Find Max
+                    // // console.log(Math.max(...$newArray.map(o => o)));
+                    // var maxValueOfPercent = Math.max(...$newArray.map(o => o));
+                    // // console.log($(`[data-percent-viewport='${maxValueOfPercent}']`));
+                    // var classesElement = $(`[data-percent-viewport='${maxValueOfPercent}']`).attr('class');
+                    // // console.log(classesElement);
+                    // var lastClass = classesElement.substr(classesElement.lastIndexOf('') + 1);
+                    // localStorage.setItem('href', lastClass);
+                    // $('.nav__item').each(function(index, element) {
+                    //     // element == this
+                    //     $(this).find('a').removeClass('active');
+                    // });
+                    // $('a[href$="' + lastClass + '"]').addClass('active');
+                    // // window.location = "#" + lastClass;
 
                 });
 
@@ -239,7 +261,21 @@
 
         @yield('content')
 
-
+        <footer id="footer">
+            <div id="detail"></div>
+            <div id="user"></div>
+            <div id="open"></div>
+            <div id="search"></div>
+            <div id="search2"></div>
+            <div id="cart"></div>
+            <div id="cart2"></div>
+            <div id="a-home"></div>
+            <div id="a-about"></div>
+            <div id="a-contact"></div>
+            <div id="a-services"></div>
+            <div id="a-pages"></div>
+            <div id="a-categories"></div>
+        </footer>
     </section>
     <script src="{{ asset('js/app/index.js') }}"></script>
     <script>
